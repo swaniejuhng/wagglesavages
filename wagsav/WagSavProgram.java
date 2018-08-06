@@ -8,55 +8,95 @@ import java.awt.event.*;
 //import java.swing.border;
 import java.awt.Color;
 
-class WagFrameMain extends JFrame implements ActionListener{
-  JPanel cards = new JPanel(new CardLayout());
-  private 
 
-  public WagFrameMain(){
+class WagLoginFrame extends JFrame implements ActionListener{
+  String introText = "<HTML><center>Hello, Waggle user!<br/>Enter your ID and password.</center></HTML>";
+  String loginErrorMessage = "";
+  JLabel welcomeLabel = new JLabel(introText);
+  JLabel userLabel = new JLabel("USERNAME");
+  JLabel passwordLabel = new JLabel("PASSWORD");
+  JTextField userTextField = new JTextField();
+  JPasswordField passwordField = new JPasswordField();
+  JButton loginButton = new JButton("Go waggle!");
+  final JLabel loginErrorLabel = new JLabel(loginErrorMessage);
+
+
+  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+  int frameWidth = (int)(dim.getWidth() / 3);
+  int frameHeight = (int)(dim.getHeight() / 3);
+
+  public WagLoginFrame(){
     super("Waggle Savages");
+    setBackground(Color.white);
+    setLayoutManager();
+    setLocationAndSize();
+    addComponentsToContainer();
+    setVisible(true);     // put this in the very last line
+  }
 
-    setSize(600, 600);
+  public void setLayoutManager(){
+    //container.setLayout();
+  }
+
+
+  public void setLocationAndSize(){
+    setLayout(null);
+    setSize(frameWidth, frameHeight);
+    setLocation(frameWidth, frameHeight);
     setResizable(true);
-
-    JPanel mainPanel = new JPanel(new GridLayout(2, 1));
-
-    String introText = "<HTML><center>Hello, Waggle user!<br/>Select Waggle ID to access information.</center></HTML>";
-    JLabel introTextLabel = new JLabel(introText);
-    introTextLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-    introTextLabel.setHorizontalAlignment(JLabel.CENTER);
-    introTextLabel.setVerticalAlignment(JLabel.CENTER);
-    mainPanel.add(introTextLabel);
-
-
-
-
-/*
-    JButton startButton = new JButton("Start!");
-    startButton.setFont(new Font("Arial", Font.PLAIN, 20));
-    startButton.addActionListener(this);
-    JPanel buttonPanel = new JPanel(new FlowLayout());
-    buttonPanel.add(startButton);
-    mainPanel.add(buttonPanel);
-*/
-    add(mainPanel);
-
-
-
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setVisible(true);
+
+    welcomeLabel.setFont(new Font("Arial", Font.PLAIN, (int)(frameWidth / 29)));
+    welcomeLabel.setBounds((int)(frameWidth * 0.25), (int)(frameHeight * 0.1), (int)(frameWidth * 0.6), (int)(frameHeight * 0.3));
+
+    userLabel.setFont(new Font("Arial", Font.PLAIN, (int)(frameWidth / 36)));
+    userTextField.setFont(new Font("Arial", Font.PLAIN, (int)(frameWidth / 36)));
+    passwordLabel.setFont(new Font("Arial", Font.PLAIN, (int)(frameWidth / 36)));
+    passwordField.setFont(new Font("Arial", Font.PLAIN, (int)(frameWidth / 36)));
+    loginButton.setFont(new Font("Arial", Font.BOLD, (int)(frameWidth / 36)));
+
+    userLabel.setBounds((int)(frameWidth * 0.07), (int)(frameHeight * 0.45), (int)(frameWidth * 0.2), (int)(frameHeight * 0.1));
+    passwordLabel.setBounds((int)(frameWidth * 0.07), (int)(frameHeight * 0.6), (int)(frameWidth * 0.2), (int)(frameHeight * 0.1));
+    userTextField.setBounds((int)(frameWidth * 0.25), (int)(frameHeight * 0.45), (int)(frameWidth * 0.4), (int)(frameHeight * 0.1));
+    passwordField.setBounds((int)(frameWidth * 0.25), (int)(frameHeight * 0.6), (int)(frameWidth * 0.4), (int)(frameHeight * 0.1));
+    loginButton.setBounds((int)(frameWidth * 0.7), (int)(frameHeight * 0.45), (int)(frameWidth * 0.2), (int)(frameHeight * 0.25));
+
+    loginErrorLabel.setFont(new Font("Arial", Font.BOLD, (int)(frameWidth / 36)));
+    loginErrorLabel.setForeground(Color.red);
+    loginErrorLabel.setBounds((int)(frameWidth * 0.25), (int)(frameHeight * 0.7), (int)(frameWidth * 0.5), (int)(frameHeight * 0.175));
+
+    loginButton.addActionListener(this);
+  }
+
+  public void addComponentsToContainer(){
+    add(welcomeLabel);
+    add(userLabel);
+    add(passwordLabel);
+    add(userTextField);
+    add(passwordField);
+    add(loginButton);
+    add(loginErrorLabel);
   }
 
   public void actionPerformed(ActionEvent e){
-    setVisible(false);
-    WagFrame1 wFrame1 = new WagFrame1("Waggle Savages");
+    String username = userTextField.getText();
+    String password = new String(passwordField.getPassword());
+
+    if(username.compareTo("wagglesavages") == 0 && password.compareTo("abc1234") == 0){
+      dispose();
+      WagFrame1 wFrame = new WagFrame1("Waggle Savages");
+    }
+
+    else{
+      loginErrorMessage = "<HTML><center>Username or password is wrong.<br/>Please try again.</center></HTML>";
+      loginErrorLabel.setText(loginErrorMessage);
+    }
   }
 }
 
 class WagFrame1 extends JFrame{
   public WagFrame1(String str){
     super(str);
-    WindowDestroyer wDestroyer = new WindowDestroyer();
-    addWindowListener(wDestroyer);
     setSize(600, 1200);
     setBackground(Color.white);
     setLayout(new GridLayout(10, 1));
@@ -95,6 +135,7 @@ class WagFrame2 extends JFrame{
 
 public class WagSavProgram{
   public static void main(String[] args){
-    WagFrameMain wFrameMain = new WagFrameMain();
+    //WagFrameMain wFrameMain = new WagFrameMain();
+    WagLoginFrame f = new WagLoginFrame();
   }
 }
