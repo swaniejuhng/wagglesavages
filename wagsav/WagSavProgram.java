@@ -1,15 +1,15 @@
-//import javax.swing.JFrame;
-//import javax.swing.JPanel;
-//import javax.swing.JButton;
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.*;
-//import java.swing.border;
 import java.awt.Color;
 
+public class WagSavProgram{
+  public static void main(String[] args) {
+    WagLoginFrame f = new WagLoginFrame();
+  }
+}
 
-class WagLoginFrame extends JFrame implements ActionListener{
+class WagLoginFrame extends JFrame implements ActionListener, KeyListener {
   String introText = "<HTML><center>Hello, Waggle user!<br/>Enter your ID and password.</center></HTML>";
   String loginErrorMessage = "";
   JLabel welcomeLabel = new JLabel(introText);
@@ -25,21 +25,15 @@ class WagLoginFrame extends JFrame implements ActionListener{
   int frameWidth = (int)(dim.getWidth() / 3);
   int frameHeight = (int)(dim.getHeight() / 3);
 
-  public WagLoginFrame(){
+  public WagLoginFrame() {
     super("Waggle Savages");
     setBackground(Color.white);
-    setLayoutManager();
     setLocationAndSize();
     addComponentsToContainer();
     setVisible(true);     // put this in the very last line
   }
 
-  public void setLayoutManager(){
-    //container.setLayout();
-  }
-
-
-  public void setLocationAndSize(){
+  public void setLocationAndSize() {
     setLayout(null);
     setSize(frameWidth, frameHeight);
     setLocation(frameWidth, frameHeight);
@@ -68,7 +62,7 @@ class WagLoginFrame extends JFrame implements ActionListener{
     loginButton.addActionListener(this);
   }
 
-  public void addComponentsToContainer(){
+  public void addComponentsToContainer() {
     add(welcomeLabel);
     add(userLabel);
     add(passwordLabel);
@@ -78,11 +72,11 @@ class WagLoginFrame extends JFrame implements ActionListener{
     add(loginErrorLabel);
   }
 
-  public void actionPerformed(ActionEvent e){
+  public void actionPerformed(ActionEvent e) {
     String username = userTextField.getText();
     String password = new String(passwordField.getPassword());
 
-    if(username.compareTo("wagglesavages") == 0 && password.compareTo("abc1234") == 0){
+    if(username.compareTo("wagglesavages") == 0 && password.compareTo("abc1234") == 0) {
       dispose();
       WagFrame1 wFrame = new WagFrame1("Waggle Savages");
     }
@@ -92,10 +86,32 @@ class WagLoginFrame extends JFrame implements ActionListener{
       loginErrorLabel.setText(loginErrorMessage);
     }
   }
+
+
+  public void keyTyped(KeyEvent e) {
+    /*
+    String username = userTextField.getText();
+    String password = new String(passwordField.getPassword());
+
+    if(username.compareTo("wagglesavages") == 0 && password.compareTo("abc1234") == 0) {
+      dispose();
+      WagFrame1 wFrame = new WagFrame1("Waggle Savages");
+    }
+
+    else{
+      loginErrorMessage = "<HTML><center>Username or password is wrong.<br/>Please try again.</center></HTML>";
+      loginErrorLabel.setText(loginErrorMessage);
+      */
+    }
+  }
+
+  public void keyPressed(KeyEvent e) {}
+
+  public void keyReleased(KeyEvent e) {}
 }
 
-class WagFrame1 extends JFrame{
-  public WagFrame1(String str){
+class WagFrame1 extends JFrame {
+  public WagFrame1(String str) {
     super(str);
     setSize(600, 1200);
     setBackground(Color.white);
@@ -104,7 +120,7 @@ class WagFrame1 extends JFrame{
 
     WagButtonListener wButtonListener = new WagButtonListener();
     Button b[] = new Button[5];
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < 5; i++) {
       b[i] = new Button("waggle" + (i + 1));
       b[i].addActionListener(wButtonListener);
       add(b[i]);
@@ -115,7 +131,7 @@ class WagFrame1 extends JFrame{
 class WagButtonListener implements ActionListener{
   private String waggleName;
 
-  public void actionPerformed(ActionEvent e){
+  public void actionPerformed(ActionEvent e) {
     waggleName = e.getActionCommand();
     WagFrame2 wFrame2 = new WagFrame2(waggleName);
   }
@@ -124,18 +140,11 @@ class WagButtonListener implements ActionListener{
 
 
 class WagFrame2 extends JFrame{
-  public WagFrame2(String waggleName){
+  public WagFrame2(String waggleName) {
     super("Waggle Savages - " + waggleName);
     WindowDestroyer wDestroyer = new WindowDestroyer();
     addWindowListener(wDestroyer);
     setSize(600, 1200);
     setVisible(true);
-  }
-}
-
-public class WagSavProgram{
-  public static void main(String[] args){
-    //WagFrameMain wFrameMain = new WagFrameMain();
-    WagLoginFrame f = new WagLoginFrame();
   }
 }
