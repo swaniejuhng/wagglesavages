@@ -1,6 +1,6 @@
 public class Battery {
     private String waggle_id;
-    private int battery_status;
+    private float battery_status;
     private float voltage;
     private char charging;
     private float temperature;
@@ -19,11 +19,11 @@ public class Battery {
         this.waggle_id = waggle_id;
     }
 
-    public int getBattery_status() {
+    public float getBattery_status() {
         return battery_status;
     }
 
-    public void setBattery_status(int battery_status) {
+    public void setBattery_status(float battery_status) {
         this.battery_status = battery_status;
     }
 

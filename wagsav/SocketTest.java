@@ -9,7 +9,7 @@ public class SocketTest {
 			Scanner reader = new Scanner(str);
 			try {
 				//Socket s = new Socket("time-A.timefreq.bldrdoc.gov",13);
-				Socket s = new Socket("192.168.2.59", 8190);
+				Socket s = new Socket("192.168.2.241", 8190);
 				//Socket s = new Socket("127.0.0.1", 8190);
 				try {
 					//while (true) {
